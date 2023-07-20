@@ -3,7 +3,7 @@
         <li *ngFor="let task of tasks; index as index" class="py-4 px-6  bg-neutral-100 rounded-md font-bold flex items-center justify-between gap-4">
             <div class="flex gap-4 items-center w-full">
                 <input (click)="toggleTaskStatus(index)" type="checkbox" [(ngModel)]="task.completed" [checked]="task.completed" class="scale-150 cursor-pointer checked:bg-yellow-500 outline-none focus:outline-none">
-                <input *ngIf="task.completed === false" type="text" [(ngModel)]="task.title" class="bg-white border-none text-neutral-700 w-full">
+                <input *ngIf="task.completed === false" (keyup)="updateTask(index, task.title)" type="text" [(ngModel)]="task.title" class="bg-white border-none text-neutral-700 w-full">
                 <input *ngIf="task.completed === true" disabled type="text" [value]="task.title" class="bg-neutral-100 italic line-through border-none text-neutral-400 w-full">
             </div>
             <div (click)="deleteTask(index)">
@@ -23,19 +23,19 @@
         </li>
     </ul>
     <div *ngIf="!tasks.length" class="flex flex-col gap-12 items-center justify-center p-12">
-        <img src="assets/empty-list.svg" alt="No task found image" class="max-w-[136px]">
-        <h2 class="text-xl text-neutral-500 translate-x-2">No task found</h2>
+        <img src="assets/empty-list.svg" alt="Imagem simbolizando que não existem tarefas" class="max-w-[136px]">
+        <h2 class="text-xl text-neutral-500 translate-x-2">Nenhuma tarefa encontrada</h2>
     </div>
 </div>
-<app-todo-input-add-items></app-todo-input-add-items>
+<app-todo-input-add-items (emitTaskEvent)="addTask($event)"></app-todo-input-add-items>
 <app-todo-button-delete-all (click)="toggleDeleteModal()"></app-todo-button-delete-all>
 
 <div *ngIf="openDialog" class="flex justify-center items-center h-screen w-screen bg-neutral-900/70 fixed top-0 left-0">
     <dialog open class="p-12 max-w-lg gap-16 flex flex-col justify-between shadow-2xl rounded-md">
-        <p class="text-3xl font-semibold text-neutral-700">Do you really want to delete all your tasks?</p>
-        <form class="flex gap-4">
-          <button (click)="deleteAllTasks(true)" class="py-4 font-semibold px-10 bg-yellow-300 hover:bg-yellow-400 transition">Yes</button>
-          <button (click)="deleteAllTasks(false)" class="py-4 font-semibold px-10 bg-neutral-100 hover:bg-neutral-200 transition">No</button>
-        </form>
+        <p class="text-3xl font-semibold text-neutral-700">Você tem certeza de que deseja excluir todas as suas tarefas?</p>
+        <div class="flex gap-4">
+          <button (click)="deleteAllTasks(true)" class="py-4 font-semibold px-10 bg-yellow-300 hover:bg-yellow-400 transition">Sim</button>
+          <button (click)="deleteAllTasks(false)" class="py-4 font-semibold px-10 bg-neutral-100 hover:bg-neutral-200 transition">Não</button>
+        </div>
     </dialog>
 </div>

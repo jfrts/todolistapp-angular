@@ -1,4 +1,4 @@
-<div class="w-full p-8 m-2 shadow-lg bg-white rounded-lg mx-auto min-w-[480px]">
+<div class="w-full p-8 m-2 shadow-lg bg-white rounded-lg mx-auto md:min-w-[480px] w-full sm:min-w-auto">
     <ul *ngIf="tasks.length" class="flex flex-col gap-4">
         <li *ngFor="let task of tasks; index as index" class="py-4 px-6  bg-neutral-100 rounded-md font-bold flex items-center justify-between gap-4">
             <div class="flex gap-4 items-center w-full">
@@ -24,7 +24,7 @@
     </ul>
     <div *ngIf="!tasks.length" class="flex flex-col gap-12 items-center justify-center p-12">
         <img src="assets/empty-list.svg" alt="Imagem simbolizando que não existem tarefas" class="max-w-[136px]">
-        <h2 class="text-xl text-neutral-500 translate-x-2">Nenhuma tarefa encontrada</h2>
+        <h2 class="text-xl text-neutral-500 translate-x-2 text-center">Nenhuma tarefa encontrada</h2>
     </div>
 </div>
 <app-todo-input-add-items (emitTaskEvent)="addTask($event)"></app-todo-input-add-items>
